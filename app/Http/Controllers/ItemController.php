@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Checklist;
+use App\Models\Item;
 
-class ChecklistController extends Controller
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,18 @@ class ChecklistController extends Controller
      */
     public function index()
     {
-        return Checklist::all();
+        //get all the items
+        return Item::all();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -26,8 +37,8 @@ class ChecklistController extends Controller
      */
     public function store(Request $request)
     {
-        //  create list
-        return Checklist::create($request->all());
+        //create new item
+        return Item::create($request->all());
     }
 
     /**
@@ -38,10 +49,19 @@ class ChecklistController extends Controller
      */
     public function show($id)
     {
-        //get one list by id
-        $checklist = Checklist::with('items')->findOrFail($id);
+        //show specific item
+        return Item::find($id);
+    }
 
-        return $checklist;
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -53,15 +73,15 @@ class ChecklistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //update a specific list's values
+        //update a specific item's values
 
-        //find the list
-        $list = Checklist::find($id);
+        //find the item
+        $item = Item::find($id);
 
         //update the values
-        $list->update($request->all());
+        $item->update($request->all());
 
-        return $list;
+        return $item;
     }
 
     /**
@@ -72,8 +92,8 @@ class ChecklistController extends Controller
      */
     public function destroy($id)
     {
-        //delete this list from db
-        $stat = Checklist::destroy($id);
+        //delete this item from db
+        $stat = Item::destroy($id);
 
         return $stat ? ['status' => 'success'] : ['status' => 'failed'];
     }

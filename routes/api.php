@@ -4,6 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ListItemController;
+use App\Http\Controllers\ListAccessController;
+use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +39,41 @@ use App\Http\Controllers\UserController;
 //  4. Update an individual list (PUT/PATCH) /api/lists/{id}
 //  5. Delete an individual list (DELETE) /api/lists/{id}
 
+//Public routes
+
+//register
+Route::post('/register', [AuthController::class, 'register']);
+
+//login
+Route::post('/login', [AuthController::class, 'login']);
+
+//items
+
+//get all items
+Route::get('/items', [ItemController::class, 'index']);
+//get specific item
+Route::get('/items/{id}', [ItemController::class, 'show']);
+
+//create new item
+Route::post('/items', [ItemController::class, 'store']);
+
+//Private routes
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    //update item
+    Route::put('/items/{id}', [ItemController::class, 'update']);
+    //delete item
+    Route::delete('/items/{id}', [ItemController::class, 'delete']);
+
+    //logout
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+
+Route::apiResource('users', UserController::class);
 
 Route::apiResource('lists', ChecklistController::class);
 
-Route::apiResource('users', UserController::class);
+Route::apiResource('list-access', ListAccessController::class);
 
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

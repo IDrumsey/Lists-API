@@ -4,4 +4,4 @@
 
 ## Author : Clay Casper (IDrumsey)
 
-## Purpose : Learn laravel php framework by building a website that let's people manage lists (Grocery list, TODO lists, etc...)
+## Purpose : Learn laravel php framework and tailwind css by building a website that let's people manage lists (Grocery list, TODO lists, etc...)

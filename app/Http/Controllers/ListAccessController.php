@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Checklist;
+use App\Models\UserListAccess;
 
-class ChecklistController extends Controller
+class ListAccessController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,18 @@ class ChecklistController extends Controller
      */
     public function index()
     {
-        return Checklist::all();
+        //get all users authentications
+        return UserListAccess::all();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -26,8 +37,8 @@ class ChecklistController extends Controller
      */
     public function store(Request $request)
     {
-        //  create list
-        return Checklist::create($request->all());
+        //create new list authentication pass
+        return UserListAccess::create($request->all());
     }
 
     /**
@@ -38,10 +49,20 @@ class ChecklistController extends Controller
      */
     public function show($id)
     {
-        //get one list by id
-        $checklist = Checklist::with('items')->findOrFail($id);
+        //show specific list access pass
 
-        return $checklist;
+        return UserListAccess::find($id);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -53,10 +74,10 @@ class ChecklistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //update a specific list's values
+        //update a specific list access values
 
-        //find the list
-        $list = Checklist::find($id);
+        //find the list access pass
+        $list = UserListAccess::find($id);
 
         //update the values
         $list->update($request->all());
@@ -72,8 +93,8 @@ class ChecklistController extends Controller
      */
     public function destroy($id)
     {
-        //delete this list from db
-        $stat = Checklist::destroy($id);
+        //delete this list pass from db
+        $stat = UserListAccess::destroy($id);
 
         return $stat ? ['status' => 'success'] : ['status' => 'failed'];
     }
